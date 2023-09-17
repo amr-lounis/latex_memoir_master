@@ -1,0 +1,97 @@
+\documentclass[a4paper, 12pt, oneside]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[english,french]{babel}
+
+\usepackage{arabtex}
+\usepackage{utf8}
+\setcode{utf8}
+
+\usepackage[left=2.00cm, right=2.cm, top=2.00cm, bottom=3.00cm]{geometry}
+\usepackage[Lenny]{fncychap}
+\usepackage{fancybox}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[T1]{fontenc}
+\usepackage{enumitem}
+\usepackage{outlines}
+\usepackage{mdframed}
+
+\usepackage{rotating}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{ {./img/} }
+\usepackage{subfig}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{url}
+
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{theorem}{Théorème}[chapter]
+\newtheorem{corollaire}[proposition]{Corollaire}
+\newtheorem{lemme}[proposition]{Lemme}
+\newtheorem{definition}{Définition}[chapter]
+\newtheorem{remarque}{Remarque}[chapter]
+\newtheorem{exemple}{Exemple}[chapter]
+\newtheorem{propriete}{Propriété}[chapter]
+
+\newenvironment{proof}[1][Preuve]{\textbf{#1}}
+{\ \rule{0.5em}{0.5em}}
+\def\baselinestretch{1.5}
+\pagestyle{fancy}
+\fancyhead[L]{\slshape\rightmark}
+\fancyhf{} 
+\fancyfoot[C]{\thepage} 
+\fancyhead[L]{\leftmark}
+\fancypagestyle{plain}{%
+    \fancyhead{}%
+    \renewcommand{\headrulewidth}{0pt}
+}
+\headsep=13mm
+
+
+\begin{document}
+\setcounter{page}{1}
+\pagenumbering{roman}
+
+\include{_pagedegarde}
+\include{_remerciements}
+\include{_dedicases}
+\include{_resume}
+
+\let\cleardoublepage\clearpage
+
+\newpage
+\markboth{Table des matières}{}
+\addcontentsline{toc}{chapter}{Table des matières}
+\tableofcontents
+
+\newpage
+\markboth{Table des figures}{}
+\addcontentsline{toc}{chapter}{Table des figures}
+\listoffigures
+
+\newpage
+\markboth{Liste des tableaux}{}
+\addcontentsline{toc}{chapter}{Liste des tableaux}
+\listoftables
+
+\include{_listeofabrv}
+
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\include{_intgenerale}
+\include{chapitre1}
+\include{chapitre2}
+\include{chapitre3}
+\include{chapitre4}
+\include{_concgenerale}
+
+\addcontentsline{toc}{chapter}{Bibliographie}
+\lhead{}
+\rhead{\textit{Bibliographie}}
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{biblio}
+\end{document}

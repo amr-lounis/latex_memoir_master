@@ -1,0 +1,35 @@
+\chapter*{Conclusion générale}
+\markboth{Conclusion générale}{}
+\addcontentsline{toc}{chapter}{Conclusion générale}
+\thispagestyle{plain}
+% ------------------------------ new 
+Ce travail a été développé dans le but de concrétiser notre idée, qui consiste à améliorer l'utilisation des espaces de stationnement grâce à des techniques d'apprentissage profond.
+
+Pour adresser cette problématique, nous avons mis au point un système capable de surveiller les entrées et sorties des véhicules dans le parking, de lire, d'enregistrer et de reconnaître les plaques d'immatriculation. Cette approche nous permet de prédire le nombre de places de stationnement disponibles et de simplifier leur gestion en ayant connaissance des horaires d'arrivée et de départ des véhicules, ainsi que de la durée de chaque opération de stationnement.
+
+
+Pour accomplir cela, nous avons effectué l'entraînement de modèles de détection d'objets en utilisant deux ensembles de données constitués d'images de voitures algériennes. Le premier ensemble, composé de 2380 images, a été employé pour former un modèle de détection des véhicules et des plaques d'immatriculation algériens. Le second ensemble, comprenant 417 images, a été spécifiquement dédié à la reconnaissance des chiffres présents sur les plaques d'immatriculation algériennes. De plus, nous avons développé un algorithme de suivi du déplacement des véhicules.
+
+Le modèle YOLOv8n\_320 a montré de meilleures performances en termes de précision de détection des véhicules et des plaques d'immatriculation, ainsi qu'en termes de temps d'apprentissage, par rapport aux modèles SSD et Faster R-CNN.
+
+Les travaux menés au cours de ce projet, nous ont permis de percevoir les avantages, et les
+limites des techniques élaborées et d'en prévoir des améliorations futures afin de les rendre plus adaptées aux besoins des parkings. Parmi ces améliorations, nous avons l'intention d'enrichir davantage le système en intégrant de nouvelles fonctionnalités, telles que la tarification du stationnement. Un autre domaine d'intérêt pour nous consiste à élargir les bases de données que nous avons crées.
+
+De plus, nous envisageons également le développement d'une application mobile qui permettra aux utilisateurs de localiser le parking le plus approprié en fonction de leurs besoins, tout en fournissant des informations en temps réel sur l'état du stationnement, notamment le nombre de places disponibles et occupées.
+
+% Base de données, fnc
+% ------------------------------ old
+% \par
+% Ce travail a été développé afin de réaliser notre idée qui est un système temps-réel et intelligent pour la gestion de parking, ce système sera capable de prendre en entrée des images des plaques d’immatriculations algériennes et retourne le nombre des places disponible dans le parking.
+% \par
+% L’objectif de ce projet était d'exploité pleinement l'espace dédié au stationnement, d'accueillir davantage de véhicules, de garantir le confort des conducteurs et de réduire la congestion routière. 
+% \par
+% Pour remédier à notre problématique, nous avons proposé un système de contrôle qui prend en entré une image de plaque d’immatriculation de la voiture qui entre dans le parking, le système donc va occuper une place, lorsque la voiture sort du parking, le système affiche à l’agent le temps passé par cette véhicule afin de calculer  le montant à payer , et libérer ensuite sa place dans la base de donnée du parking concerné.
+
+% \par
+% Afin d’implémenter ce système, nous avons utilisé les réseaux de neurones en utilisant un DataSet que nous avons collecté manuellement contenant 2380 images de plaques d’immatriculations algériennes, nous avons également appuyés sur la technologie d'augmentation de données et l'annotation.
+% \par
+% Ce travail nous a permis d’approfondir nos connaissances dans le domaine de l’intelligence artificielle en implémentant les modèles d’apprentissage profond à savoir l’algorithme Mask-RCNN utilisé dans l’étape de segmentation Pour celle de la détection, nous avons opté d’implémenter YOLOV8.   
+% \par
+% Cependant, notre système reste ouvert à des améliorations en perspective, où nous pensons de créer une application Mobile qui montre la localisation des parking les plus proches au chauffeur qui est entrain d’utiliser notre application, et lui est montré le nombre de place disponible dans le parking choisit et le temps en minute entre  le parking et l’endroit ciblé.
+% \par
