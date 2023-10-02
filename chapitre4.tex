@@ -1,3 +1,7 @@
+% ++++++++++++++++++++++++++++ Je n'ai constaté aucune erreur liée à la zone A et B selon mon observation de boufedji page 58
+%+++++++ observation de boufedji algorithme supreme
+ % +++++++++++++++++++++++ remarque de DJOUADI unity of tables OK
+ % le langage de programmation Python sur is ok delete
 \chapter{Système intelligent de gestion du parking: Réalisation, résultats et analyse}
 \markboth{Système intelligent de gestion du parking: Réalisation, résultats et analyse}{}
 \section{Introduction}
@@ -18,7 +22,7 @@ En outre, il pourrait être avantageux de disposer de bases de données spécifi
 \section{Solution proposée}
 La solution proposée repose sur trois sous-systèmes , qui sont inter-connectés pour former un système global de gestion de parking intelligent, comme illustré dans la figure \ref{fig:ch4_Simple_system_diagram}. 
 
-\begin{outline}
+\begin{outline}[enumerate]
     \1 Le premier sous-système est utilisé pour détecter les voitures et les plaques d'immatriculation dans une image.
 
     \1 Le deuxième sous-système se focalise sur la reconnaissance des caractères optiques contenus sur la plaque détectée. 
@@ -28,17 +32,15 @@ La solution proposée repose sur trois sous-systèmes , qui sont inter-connecté
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[height=05cm]{ch4-Simple_system_diagram.jpg}
+	\includegraphics[height=07cm]{ch4-Simple_system_diagram.jpg}
 	\caption{Système proposé de gestion de parking intelligent}
  \label{fig:ch4_Simple_system_diagram}
 \end{figure}
+
 \subsection{Sous-systèmes de détection de véhicules et de plaques d'immatriculations}
 Comme mentionné précédemment, ce travail s'appuie sur le modèle "YOLOv8", "SSD" ou "Faster R-CNN" pour la gestion des parkings. Ce processus implique l'identification et la prédiction des véhicules ainsi que des plaques d'immatriculation Algériennes, réparties en deux catégories : véhicules et plaques d’immatriculation.
 \\
 L'idée est de construire d'abord une base de données de véhicules, puis d'entraîner le modèle et de le tester sur des images. Pour ce faire, les images collectées sont soumises à un prétraitement et à une annotation. Ensuite, un échantillonnage automatique des données est appliqué pour former des ensembles d'images destinés à l'entraînement, à la validation et aux tests.
-%(70 \%) des images de données ont été utilisées comme échantillons d'apprentissage.
-%(20 \%) des images de données ont été utilisées comme ensembles de validation.
-%(10\%) des images de données ont été utilisées comme ensembles de test.
 
 Dans la phase d'apprentissage du modèle adapté, les poids du modèle sont calculés en se basant sur les ensembles de données préparés et les poids pré-entraînés. Une fois que l'apprentissage est terminé, il est nécessaire d'évaluer le modèle utilisé sur des données de test en utilisant les poids d'entraînement. Par conséquent, les véhicules munis de plaques d'immatriculation à détecter seront localisés et prédits.
 
@@ -59,30 +61,33 @@ La liste des numéros détectés est ensuite organisée dans l'ordre de leur pos
 
 \subsection{Sous-systèmes de suivi et de comptage en temps réel des véhicules}\label{sec:traking}
 
+La vidéo est une séquence d'images conçue pour créer une illusion de mouvement lorsqu'elle est visionnée séquentiellement. Le suivi des mouvements des voitures dans la vidéo repose sur l'analyse des déplacements des objets détectés dans les images successives de la vidéo, grâce à l'utilisation d'algorithmes de détection d'objets. Pour suivre le mouvement des voitures, le système passe par plusieurs étapes : tout d'abord, il repère la position de la voiture dans deux images consécutives, puis mesure la distance entre elles. Si cette distance est réduite, cela signifie que la voiture a peu bougé, ce qui permet d'attribuer un identifiant unique à chaque voiture pendant son déplacement dans la scène \cite{ch4_yolo_sort}.
 
-Les véhicules identifiés sont exploités dans le processus de suivi et de comptage des véhicules au sein d'une séquence vidéo. Cette séquence enregistre des images de véhicules capturées à des moments successifs. Par conséquent, lorsqu'un véhicule est observé en mouvement dans une vidéo, cela implique que le véhicule occupe une position différente à chaque image consécutive de la vidéo.
-\\
-L'idée fondamentale derrière le suivi d'objets réside dans la création d'un traqueur d'objet pour chaque objet détecté, afin de suivre son déplacement. Ce suivi se prolonge jusqu'à ce que la N-ième image de la séquence soit atteinte, avec un processus de détection d'objets en cours. Le traqueur d'objets est responsable de la surveillance continue de chaque véhicule, attribuant et maintenant des numéros d'identification (ID) pour chacun.
 
-Dans la phase de suivi de notre système, nous avons mis en œuvre un algorithme simple de suivi d'objets qui se base sur le suivi des centroïdes des objets. Il fonctionne en calculant la distance Euclidienne entre les centroïdes des véhicules déjà existants (c'est-à-dire les véhicules précédemment suivis par le traqueur de centroïdes) et les centroïdes des nouveaux véhicules présents dans les images suivantes de la vidéo. Les étapes complètes de cette solution sont détaillées comme suit :
+% Les véhicules identifiés sont exploités dans le processus de suivi et de comptage des véhicules au sein d'une séquence vidéo. Cette séquence enregistre des images de véhicules capturées à des moments successifs. Par conséquent, lorsqu'un véhicule est observé en mouvement dans une vidéo, cela implique que le véhicule occupe une position différente à chaque image consécutive de la vidéo.
+% \\
+% L'idée fondamentale derrière le suivi d'objets réside dans la création d'un traqueur d'objet pour chaque objet détecté, afin de suivre son déplacement. Ce suivi se prolonge jusqu'à ce que la N-ième image de la séquence soit atteinte, avec un processus de détection d'objets en cours. Le traqueur d'objets est responsable de la surveillance continue de chaque véhicule, attribuant et maintenant des numéros d'identification (ID) pour chacun.
 
-%Ces étapes sont répétées tout le temps tant que le programme est en cours d'exécution 
-\begin{outline}[enumerate]
-    \1  Lire un image de la vidéo (ou d'un flux de données en temps réel)à un moment t.
-    
-    \1  Détecter les véhicules présents dans l'image (en estimant les coordonnées des boîtes englobantes) concernée.
-    
-    \1  Attribuer un identifiant à chaque véhicule détecté.
-    
-    \1  Calculer les centroïdes des voitures détectées et les enregistrer dans une liste. 
-    
-    \1  Lire un nouvelle image de la vidéo à un moment t+1.
-    
-    \1  Détecter les véhicules présents dans la nouvelle image (en estimant les coordonnées des nouvelles boîtes englobantes).
-    
-    \1  Calculer la distance entre les centroïdes des nouveaux véhicules et tous les centroïdes d'objets enregistrés dans la liste précédente.Si la distance entre le centre du nouveau véhicule et l'un des centres de la liste est inférieure à une distance minimale prédéfinie, alors le véhicule détecté est considéré comme étant le même que celui déjà enregistré. Le centroïde nouvellement calculé remplace l'ancien centroïde, et l'identifiant reste inchangé. Si la distance entre le centroïde du nouveau véhicule et tous les centres enregistrés dans la liste précédente est supérieure à la distance minimale, alors ce véhicule est considéré comme un nouveau véhicule dans la vidéo. Son centroïde est ajouté à la liste des centroïde avec un nouvel identifiant.
-\end{outline}
+% Dans la phase de suivi de notre système, nous avons mis en œuvre un algorithme simple de suivi d'objets qui se base sur le suivi des centroïdes des objets. Il fonctionne en calculant la distance Euclidienne entre les centroïdes des véhicules déjà existants (c'est-à-dire les véhicules précédemment suivis par le traqueur de centroïdes) et les centroïdes des nouveaux véhicules présents dans les images suivantes de la vidéo. Les étapes complètes de cette solution sont détaillées comme suit :
 
+% %Ces étapes sont répétées tout le temps tant que le programme est en cours d'exécution 
+% \begin{outline}[enumerate]
+%     \1  Lire un image de la vidéo (ou d'un flux de données en temps réel)à un moment t.
+    
+%     \1  Détecter les véhicules présents dans l'image (en estimant les coordonnées des boîtes englobantes) concernée.
+    
+%     \1  Attribuer un identifiant à chaque véhicule détecté.
+    
+%     \1  Calculer les centroïdes des voitures détectées et les enregistrer dans une liste. 
+    
+%     \1  Lire un nouvelle image de la vidéo à un moment t+1.
+    
+%     \1  Détecter les véhicules présents dans la nouvelle image (en estimant les coordonnées des nouvelles boîtes englobantes).
+    
+%     \1  Calculer la distance entre les centroïdes des nouveaux véhicules et tous les centroïdes d'objets enregistrés dans la liste précédente.Si la distance entre le centre du nouveau véhicule et l'un des centres de la liste est inférieure à une distance minimale prédéfinie, alors le véhicule détecté est considéré comme étant le même que celui déjà enregistré. Le centroïde nouvellement calculé remplace l'ancien centroïde, et l'identifiant reste inchangé. Si la distance entre le centroïde du nouveau véhicule et tous les centres enregistrés dans la liste précédente est supérieure à la distance minimale, alors ce véhicule est considéré comme un nouveau véhicule dans la vidéo. Son centroïde est ajouté à la liste des centroïde avec un nouvel identifiant.
+% \end{outline}
+
+\subsubsection{comptage des voitures entrant et sortant}
 Si nous divisons la scène sous surveillance de la caméra de sécurité en deux zones,  à savoir la zone B près de la porte du parking et la zone A plus éloignée de la porte du parking, comme illustré dans la figure \ref{ch4-comptage}, il devient possible de compter les véhicules entrants et sortants en suivant le mouvement des véhicules entre les deux zones de la manière suivante :\\
 Lorsque nous suivons les véhicules qui se déplacent de la zone A vers la zone B, nous les comptons et les considérons comme le nombre de véhicules entrant dans le parking.\\
 Lorsque nous suivons les véhicules qui se déplacent de la zone B vers la zone A, nous les comptons et les considérons comme le nombre de véhicules sortant du parking.
@@ -96,7 +101,9 @@ Lorsque nous suivons les véhicules qui se déplacent de la zone B vers la zone 
 
 \section{Étude expérimentale}
 
-Les expériences réalisées dans cette section ont été effectuées en utilisant le langage de programmation Python sur la plateforme Google Colaboratory (communément appelée Colab). Cette plateforme utilise l'environnement "Jupyter" (exécuté dans le cloud de Google) pour des tâches d'apprentissage profond et des applications centrées sur les unités de traitement graphique (GPU). En plus de sa facilité d'utilisation (aucune installation préalable requise), Colab offre des ressources de calcul gratuites et prend en charge le développement collaboratif. Du point de vue technique, elle est équipée de 12,8 Go de mémoire vive (RAM) et d'une unité de traitement graphique gratuite (NVIDIA Tesla t4 + 16GB RAM) pouvant être utilisée en continu pendant 12 heures, avec la possibilité d'accéder à d'autres unités de traitement moyennant un abonnement payant. En complément, nous avons utilisé un ordinateur portable équipé d'un processeur \{Intel i5-8350U à 1,70 GHz\}, avec une carte graphique \{Intel UHD Graphics 620\}, sous Windows 10  pour réaliser nos expériences.
+Les expériences réalisées dans cette section ont été effectuées en utilisant
+% le langage de programmation Python sur 
+la plateforme Google Colaboratory (communément appelée Colab). Cette plateforme utilise l'environnement "Jupyter" (exécuté dans le cloud de Google) pour des tâches d'apprentissage profond et des applications centrées sur les unités de traitement graphique (GPU). En plus de sa facilité d'utilisation (aucune installation préalable requise), Colab offre des ressources de calcul gratuites et prend en charge le développement collaboratif. Du point de vue technique, elle est équipée de 12,8 Go de mémoire vive (RAM) et d'une unité de traitement graphique gratuite (NVIDIA Tesla t4 + 16GB RAM) pouvant être utilisée en continu pendant 12 heures, avec la possibilité d'accéder à d'autres unités de traitement moyennant un abonnement payant. En complément, nous avons utilisé un ordinateur portable équipé d'un processeur \{Intel i5-8350U à 1,70 GHz\}, avec une carte graphique \{Intel UHD Graphics 620\}, sous Windows 10  pour réaliser nos expériences.
 Le framework Pytorch est également employé pour construire notre modèle d'apprentissage profond pour la gestion de parking. 
 
 \subsection{Description des jeux de données}
@@ -569,7 +576,7 @@ Dans la première expérience, nous faisons varier les valeurs de la dimension d
 	\centering
     \begin{tabular}{|l|l|l|l|l|l|}
     \hline
-        Modèle & \shortstack{Dimension \\ d'image}  & Epoque &    mAP50 & \shortstack{Taille \\du modèle}   & \shortstack{Temps\\ d'apprentissage } \\ \hline
+        Modèle & \shortstack{Dimension \\ d'image}  & Epoque &    mAP50 & \shortstack{Taille \\du modèle \\(Mo)}   & \shortstack{Temps\\ d'apprentissage \\ (Minutes)} \\ \hline
         \textbf{YOLOv8n} & \textbf{320x320} &      \textbf{25}     & \textbf{0.995} &  \textbf{6} &      \textbf{38}    \\ \hline
         YOLOv8n &  416x416 &     25     & 0.994  & 6 &     44    \\ \hline
         YOLOv8n & 512x512  &     25    & 0.995   &  6 &  54     \\ \hline
@@ -601,7 +608,7 @@ Notre objectif était de sélectionner le modèle qui offre la vitesse de détec
     \centering
     \begin{tabular}{|l|l|l|l|}
     \hline
-        Modèle & Dimension d'image & Temps d'inférence & FPS\\ \hline
+        Modèle & Dimension d'image & Temps d'inférence (MS)& FPS\\ \hline
         \textbf{YOLOv8n} & \textbf{320x320} & \textbf{71} & \textbf{14.1} \\ \hline
         YOLOv8n & 416x416 & 83 & 12.0 \\ \hline
         YOLOv8n & 512x512 & 125 & 8.0 \\ \hline
@@ -659,7 +666,7 @@ De manière similaire, nous avons effectué des expériences pour évaluer la re
     \centering
     \begin{tabular}{|l|l|l|l|l|l|}
     \hline
-        Modèle & \shortstack{Dimension \\d'image } & Epoque &    mAP50 & \shortstack{Taille \\du modèle}   &  \shortstack{Temps \\ d'apprentissage}     \\ \hline
+        Modèle & \shortstack{Dimension \\d'image } & Epoque &    mAP50 & \shortstack{Taille \\du modèle \\(Mo)}   &  \shortstack{Temps \\ d'apprentissage \\ (Minutes)}     \\ \hline
         YOLOv8n & 96x96          &   80         & 0.93   & 6 & 13  \\ \hline
         YOLOv8n & 128x128         &   80       & 0.986   &  6 &  15\\ \hline
         YOLOv8n & 160x160          &   80       & 0.986   &6  & 16 \\ \hline
@@ -685,7 +692,7 @@ En ce qui concerne le temps d'apprentissage, les modèles ont des temps d'appren
     \centering
     \begin{tabular}{|l|l|l|}
     \hline
-        Modèle  & Dimension d'image & Temps d'inférence \\ \hline
+        Modèle  & Dimension d'image &  \shortstack{Temps d'inférence \\ (MS) }\\ \hline
         YOLOv8n & 96x96& 10 \\ \hline
         YOLOv8n & 128x128 & 10 \\ \hline
         YOLOv8n & 160x160 & 10 \\ \hline
@@ -693,8 +700,8 @@ En ce qui concerne le temps d'apprentissage, les modèles ont des temps d'appren
         \textbf{YOLOv8n} & \textbf{224x224} & \textbf{20} \\ \hline
         YOLOv8n & 256x256 & 30 \\ \hline
         YOLOv8s & 224x224 & 330 \\ \hline
-         YOLOv8m & 320x320 & 600 \\ \hline
-        SSD & 320 & 110x110 \\ \hline
+        YOLOv8m & 320x320 & 600 \\ \hline
+        SSD & 320x320 & 110 \\ \hline
         Faster R-CNN & 320x320 & 600 \\ \hline
     \end{tabular}
     \caption{Comparaison de vitesse d'inférence des modèles pour la reconnaissance des chiffres}
@@ -797,7 +804,7 @@ La Figure \ref{fig:final_soft} présente l'interface principale de l'application
 \1 10. Nombre de véhicule sortant du parking.
 \1 11. Liste des numéros de plaques d'immatriculation des voitures entrant dans le parking.
 \1 12. Liste des numéros de plaques d'immatriculation des véhicules sortant du parking.
-\1 13, 14 et 15 : Ce sont des zones utilisées par l'algorithme de suivi qui a été expliqué dans la sous-section \ref{sec:traking}, où lorsque le point indiqué par la flèche 8 entre dans l'une des zones, le travail se fait comme suit :
+\1 13, 14 et 15 : Ce sont des zones utilisées dans la sous-section \ref{sec:traking}, où lorsque le point indiqué par la flèche 8 entre dans l'une des zones, le travail se fait comme suit :
        
     \2 Lorsque le point 8 est détecté dans la zone 13, puis quelque temps plus tard, il est détecté dans la zone 15 avec le même identifiant de voiture, le système conclut que la voiture est entrée dans le parking.
 
@@ -857,65 +864,3 @@ Lors du développement des différents modules de l'application, plusieurs probl
 Dans ce dernier chapitre, nous avons décrit notre système de gestion de parking pour les véhicules en Algérie. Ce système est capable de détecter les véhicules, les plaques d'immatriculation, de reconnaître les chiffres d'immatriculation et de suivre le mouvement des véhicules entrant et sortant d'un parking. Il repose sur des techniques avancées de vision par ordinateur, en particulier l'apprentissage profond.
 
 Nous avons évalué plusieurs algorithmes de détection d'objets, et à la suite de nombreuses expériences, nous avons choisi YOLOv8n en raison de ses performances exceptionnelles en matière de détection et de reconnaissance. Nous avons également testé divers outils OCR pour la lecture des plaques d'immatriculation. Les résultats obtenus ont montré la supériorité du modèle YOLOv8n dans cette tâche.
-
-%%%%%%%%%%%%pour expliquer le processus de suivi de voiture et de plaque d'immatriculation tout au long de la vidéo, on assignent des identifiants uniques et on analysent leur mouvement pour déterminer leur entrée ou leur sortie du parking.
-
-% Voici une explication générale des étapes mentionnées précédemment:
-
-% \begin{outline}[enumerate]
-%     \1 Réception de la vidéo a partir de la caméra de surveillance en temps réel :
-%         \2 nous pouvons utiliser la bibliothèque OpenCV pour capturer la vidéo en temps réel à partir de la caméra de surveillance.
-
-%     \1 Détection des voitures et des plaques d'immatriculation à l'aide d'un modèle de détection d'objets :
-%        \2 nous pouvons utiliser des modèles tels que Faster R-CNN ou SSD Mobile net v3  ou YOLOV8 pour détecter les voitures dans les images vidéo.
-    
-%     \1 Découpage de la partie d'image contenant la plaque d'immatriculation :
-%        \2 Une fois les voitures et les plaques d'immatriculation détectées, nous pouvons découper la partie de l'image qui contient la plaque d'immatriculation.  en utilisant des bibliothèques de traitement d'image comme OpenCV.
-    
-%     \1 Extraction du texte (de la plaque d'immatriculation):
-%        \2 Pour lire la plaque d'immatriculation, nous pouvons utiliser des algorithmes OCR ou développer un algorithme personnalisé.
-    
-%     \1 Suivi des voitures dans une vidéo:
-%        \2 Il existe plusieurs algorithmes de suivi d'objets que nous pouvons utiliser pour suivre le mouvement des voitures entre les images vidéo consécutives , mais celui qui peut être utilisé dans notre projet est l'algorithme de détection et de suivi (Detection and Tracking) .
-    
-%     \1 Attribution d'identifiants aux voitures :
-%        \2 Lors du suivi des voitures, nous attribuons un identifiant unique à chaque voiture dans la scène, ainsi qu'à sa plaque d'immatriculation.
-    
-%     \1 Analyse du mouvement des voitures pour déterminer si elles entrent ou sortent du parking :
-%        \2 Nous utilisons les identifiants attribués pour analyser le mouvement des voitures, déterminer leur direction et savoir si elles entrent ou sortent du parking.
-    
-%     \1 Détermination du nombre de voitures entrantes et sortantes du parking :
-%         \2 Calcule du nombre de voitures entrantes et sortantes du parking en fonction de l'analyse du mouvement des voitures qui a été effectuée
-       
-% \end{outline}
-
-% %%%%%%%%%%%%%%%%%%%
-% Pour entraîner un modèle de détection d'objets dans des images, plusieurs étapes importantes doivent généralement être suivies:
-% \begin{outline}[enumerate]
-%     \1 Chargement des bibliothèques : Commençons par charger les bibliothèques de base telles que PyTorch et TorchVision.
-
-%     \1 Sélection et personnalisation du modèle : Choisissons le modèle que nous souhaitons entraîner et personnalisons ses paramètres de base tels que la forme des entrées et des sorties, ainsi que d'autres paramètres selon nos besoins.
-
-%     \1 Création d'une classe pour la lecture des données : Écrivons une classe personnalisée pour lire l'ensemble de données composé d'images et de fichiers de annotations sur les objets, puis convertissons ces données en tensors compréhensibles par le framework.
-
-%     \1 Préparation de données : Au sein de cette étape, redimensionnons les images pour les adapter aux exigences du modèle de détection d'objets et assurons-nous que les données sont correctement formatées, notamment en effectuant le redimensionnement, la normalisation, et l'ajustement des dimensions au besoin.
-
-%     \1 Chargement du modèle : Assurons-nous que le modèle est correctement chargé et converti dans un format compréhensible par le processeur graphique GPU ou l'unité centrale de traitement (CPU).
-
-%     \1 Définition de la fonction de perte : Définissons et choisissons la fonction de perte appropriée à notre tâche .
-
-%     \1 Sélection de l'optimiseur : Choisissons l'optimiseur à utiliser, tel que le SGD (Stochastic Gradient Descent), et configurons ses paramètres, y compris le taux d'apprentissage et le nombre d'étapes.
-
-%     \1 Entraînement du modèle : Effectuons le processus d'entraînement en utilisant une boucle itérative qui comprend les étapes suivantes :
-%    \2 Réinitialisation des gradients.
-%    \2 Passage en avant (Forward Pass) pour obtenir les prédictions du modèle.
-%    \2 Calcul de la perte entre les prédictions et les valeurs réelles.
-%    \2 Rétropropagation (Backward Pass) et mise à jour des paramètres du modèle.
-
-%    \1 Sauvegarde du modèle : Après l'entraînement, sauvegardons le modèle pour une utilisation ultérieure sans avoir besoin de le ré-entraîner.
-
-%    \1 Évaluation du modèle : Évaluons les performances du modèle en utilisant des données de test ou de validation pour mesurer son efficacité.
-
-%    \1 Utilisation du modèle : Après avoir réussi l'entraînement, nous pouvons utiliser le modèle pour détecter des objets dans de nouvelles images.
-
-% \end{outline}
